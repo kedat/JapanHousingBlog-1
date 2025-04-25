@@ -13,22 +13,22 @@ const Header = ({ isSearchVisible, toggleSearch }: HeaderProps) => {
       <div className="container py-6">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
-            <Link href="/">
-              <a className="font-bold text-2xl text-primary tracking-wider">JAPAN HOUSING</a>
+            <Link href="/" className="font-bold text-2xl text-primary tracking-wider">
+              JAPAN HOUSING
             </Link>
           </div>
           <nav className="flex items-center space-x-8">
-            <Link href="/">
-              <a className="text-text hover:text-accent transition duration-300">Home</a>
+            <Link href="/" className="text-text hover:text-accent transition duration-300">
+              Home
             </Link>
-            <Link href="/articles">
-              <a className="text-text hover:text-accent transition duration-300">Articles</a>
+            <Link href="/articles" className="text-text hover:text-accent transition duration-300">
+              Articles
             </Link>
-            <Link href="/categories/architecture">
-              <a className="text-text hover:text-accent transition duration-300">Categories</a>
+            <Link href="/categories/architecture" className="text-text hover:text-accent transition duration-300">
+              Categories
             </Link>
-            <Link href="/about">
-              <a className="text-text hover:text-accent transition duration-300">About</a>
+            <Link href="/about" className="text-text hover:text-accent transition duration-300">
+              About
             </Link>
             <button
               type="button"
