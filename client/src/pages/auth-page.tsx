@@ -7,11 +7,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { insertUserSchema } from "@shared/schema";
+import { insertUserSchema, InsertUser } from "@shared/schema";
 import { z } from "zod";
 import { Redirect } from "wouter";
-import { Loader2 } from "lucide-react";
+import { Loader2, Check, Calendar, Users } from "lucide-react";
 
+// Login schema definition
 const loginSchema = z.object({
   username: z.string().min(3, {
     message: "Username must be at least 3 characters",
@@ -21,17 +22,30 @@ const loginSchema = z.object({
   }),
 });
 
-const registerSchema = insertUserSchema.extend({
+type LoginFormValues = z.infer<typeof loginSchema>;
+
+// Register schema definition
+const registerSchema = z.object({
+  username: z.string().min(3, {
+    message: "Username must be at least 3 characters",
+  }),
+  password: z.string().min(6, {
+    message: "Password must be at least 6 characters",
+  }),
   confirmPassword: z.string(),
+  name: z.string().optional(),
+  email: z.string().email().optional(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
 });
 
+type RegisterFormValues = z.infer<typeof registerSchema>;
+
 export default function AuthPage() {
   const { user, isLoading, loginMutation, registerMutation } = useAuth();
 
-  const loginForm = useForm<z.infer<typeof loginSchema>>({
+  const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       username: "",
@@ -39,7 +53,7 @@ export default function AuthPage() {
     },
   });
 
-  const registerForm = useForm<z.infer<typeof registerSchema>>({
+  const registerForm = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
       username: "",
@@ -50,13 +64,13 @@ export default function AuthPage() {
     },
   });
 
-  const onLoginSubmit = (values: z.infer<typeof loginSchema>) => {
+  const onLoginSubmit = (values: LoginFormValues) => {
     loginMutation.mutate(values);
   };
 
-  const onRegisterSubmit = (values: z.infer<typeof registerSchema>) => {
+  const onRegisterSubmit = (values: RegisterFormValues) => {
     const { confirmPassword, ...userDetails } = values;
-    registerMutation.mutate(userDetails);
+    registerMutation.mutate(userDetails as InsertUser);
   };
 
   // Redirect if user is already logged in
@@ -65,9 +79,9 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen">
       {/* Form section */}
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
         <Tabs defaultValue="login" className="w-full max-w-md">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="login">Login</TabsTrigger>
@@ -229,7 +243,7 @@ export default function AuthPage() {
         </Tabs>
       </div>
       
-      {/* Hero section */}
+      {/* Hero section - desktop */}
       <div className="hidden md:block flex-1 bg-gradient-to-br from-primary/90 to-primary/60 text-white p-12 flex flex-col justify-center">
         <div className="max-w-xl mx-auto">
           <h1 className="text-4xl font-bold mb-6">Japan Housing</h1>
@@ -239,9 +253,7 @@ export default function AuthPage() {
           <div className="space-y-4">
             <div className="flex items-start">
               <div className="bg-white/20 p-2 rounded-full mr-4">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+                <Check className="h-5 w-5" />
               </div>
               <div>
                 <h3 className="font-semibold text-lg">Exclusive Content</h3>
@@ -250,9 +262,7 @@ export default function AuthPage() {
             </div>
             <div className="flex items-start">
               <div className="bg-white/20 p-2 rounded-full mr-4">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
+                <Calendar className="h-5 w-5" />
               </div>
               <div>
                 <h3 className="font-semibold text-lg">Latest Updates</h3>
@@ -261,15 +271,32 @@ export default function AuthPage() {
             </div>
             <div className="flex items-start">
               <div className="bg-white/20 p-2 rounded-full mr-4">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
+                <Users className="h-5 w-5" />
               </div>
               <div>
                 <h3 className="font-semibold text-lg">Community Access</h3>
                 <p className="text-white/80">Join discussions and connect with other enthusiasts</p>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Hero section - mobile (simplified) */}
+      <div className="md:hidden bg-gradient-to-br from-primary/90 to-primary/60 text-white p-6">
+        <h2 className="text-2xl font-bold mb-3 text-center">Join Japan Housing</h2>
+        <p className="text-center text-white/90 mb-4">
+          Discover exclusive content, latest updates, and connect with fellow enthusiasts in Japanese architecture and real estate.
+        </p>
+        <div className="flex justify-center space-x-4">
+          <div className="bg-white/20 p-2 rounded-full">
+            <Check className="h-5 w-5" />
+          </div>
+          <div className="bg-white/20 p-2 rounded-full">
+            <Calendar className="h-5 w-5" />
+          </div>
+          <div className="bg-white/20 p-2 rounded-full">
+            <Users className="h-5 w-5" />
           </div>
         </div>
       </div>
