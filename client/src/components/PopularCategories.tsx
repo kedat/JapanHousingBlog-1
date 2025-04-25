@@ -39,24 +39,24 @@ const PopularCategories = () => {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {categoryAnimations.map((category, index) => (
-            <Link key={category.slug} href={`/categories/${category.slug}`}>
-              <a 
-                className="block bg-white shadow-sm hover:shadow-md transition-shadow duration-300 rounded-lg overflow-hidden text-center"
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-              >
-                <div className="h-32 flex items-center justify-center bg-secondary/10 p-4">
-                  <Player
-                    autoplay={hoveredIndex === index}
-                    loop={hoveredIndex === index}
-                    src={category.animation}
-                    style={{ height: '100px', width: '100px' }}
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-medium text-lg text-primary">{category.name}</h3>
-                </div>
-              </a>
+            <Link 
+              key={category.slug} 
+              href={`/categories/${category.slug}`}
+              className="block bg-white shadow-sm hover:shadow-md transition-shadow duration-300 rounded-lg overflow-hidden text-center"
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <div className="h-32 flex items-center justify-center bg-secondary/10 p-4">
+                <Player
+                  autoplay={hoveredIndex === index}
+                  loop={hoveredIndex === index}
+                  src={category.animation}
+                  style={{ height: '100px', width: '100px' }}
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="font-medium text-lg text-primary">{category.name}</h3>
+              </div>
             </Link>
           ))}
         </div>

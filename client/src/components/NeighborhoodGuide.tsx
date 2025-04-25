@@ -110,10 +110,11 @@ const NeighborhoodGuide = () => {
         <div className="absolute bottom-0 left-0 p-6 text-white">
           <h3 className="text-2xl font-bold mb-2">{neighborhood.name}</h3>
           <p className="mb-4">{neighborhood.description}</p>
-          <Link href={`/neighborhood/${neighborhood.slug}`}>
-            <a className="inline-block px-4 py-2 bg-white text-primary font-medium rounded-sm hover:bg-white/90 transition duration-300">
-              Explore Guide
-            </a>
+          <Link 
+            href={`/neighborhood/${neighborhood.slug}`}
+            className="inline-block px-4 py-2 bg-white text-primary font-medium rounded-sm hover:bg-white/90 transition duration-300"
+          >
+            Explore Guide
           </Link>
         </div>
       </div>
