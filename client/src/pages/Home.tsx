@@ -3,6 +3,10 @@ import FeaturedArticles from "@/components/FeaturedArticles";
 import CategorySection from "@/components/CategorySection";
 import LatestArticles from "@/components/LatestArticles";
 import NewsletterSection from "@/components/NewsletterSection";
+import PopularCategories from "@/components/PopularCategories";
+import KeyStatsSection from "@/components/KeyStatsSection";
+import NeighborhoodGuide from "@/components/NeighborhoodGuide";
+import ReaderTestimonials from "@/components/ReaderTestimonials";
 import { getFeaturedArticles, getLatestArticles } from "@/data/articles";
 import { getFeaturedCategories } from "@/data/categories";
 import { useEffect } from "react";
@@ -28,8 +32,12 @@ const Home = () => {
     <>
       <HeroSection article={featuredArticles[0]} />
       <FeaturedArticles articles={featuredArticles.slice(1)} />
+      <PopularCategories />
+      <KeyStatsSection />
       <CategorySection categories={featuredCategories} />
+      <NeighborhoodGuide />
       <LatestArticles articles={latestArticles} />
+      <ReaderTestimonials />
       <NewsletterSection />
     </>
   );
