@@ -37,6 +37,8 @@ function Router() {
           <Route path="/search" component={Search} />
           <Route path="/about" component={About} />
           <Route path="/auth" component={AuthPage} />
+          {/* Protected routes would use this pattern: */}
+          {/* <ProtectedRoute path="/profile" component={ProfilePage} /> */}
           <Route component={NotFound} />
         </Switch>
       </main>
