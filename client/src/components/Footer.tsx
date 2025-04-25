@@ -31,28 +31,28 @@ const Footer = () => {
             <h4 className="font-bold mb-4">Categories</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/categories/architecture">
-                  <a className="text-white/70 hover:text-accent transition duration-300">Architecture</a>
+                <Link href="/categories/architecture" className="text-white/70 hover:text-accent transition duration-300">
+                  Architecture
                 </Link>
               </li>
               <li>
-                <Link href="/categories/real-estate">
-                  <a className="text-white/70 hover:text-accent transition duration-300">Real Estate</a>
+                <Link href="/categories/real-estate" className="text-white/70 hover:text-accent transition duration-300">
+                  Real Estate
                 </Link>
               </li>
               <li>
-                <Link href="/categories/interior-design">
-                  <a className="text-white/70 hover:text-accent transition duration-300">Interior Design</a>
+                <Link href="/categories/interior-design" className="text-white/70 hover:text-accent transition duration-300">
+                  Interior Design
                 </Link>
               </li>
               <li>
-                <Link href="/categories/sustainability">
-                  <a className="text-white/70 hover:text-accent transition duration-300">Sustainability</a>
+                <Link href="/categories/sustainability" className="text-white/70 hover:text-accent transition duration-300">
+                  Sustainability
                 </Link>
               </li>
               <li>
-                <Link href="/categories/market-trends">
-                  <a className="text-white/70 hover:text-accent transition duration-300">Market Trends</a>
+                <Link href="/categories/market-trends" className="text-white/70 hover:text-accent transition duration-300">
+                  Market Trends
                 </Link>
               </li>
             </ul>
@@ -62,23 +62,23 @@ const Footer = () => {
             <h4 className="font-bold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/">
-                  <a className="text-white/70 hover:text-accent transition duration-300">Home</a>
+                <Link href="/" className="text-white/70 hover:text-accent transition duration-300">
+                  Home
                 </Link>
               </li>
               <li>
-                <Link href="/about">
-                  <a className="text-white/70 hover:text-accent transition duration-300">About Us</a>
+                <Link href="/about" className="text-white/70 hover:text-accent transition duration-300">
+                  About Us
                 </Link>
               </li>
               <li>
-                <Link href="/articles">
-                  <a className="text-white/70 hover:text-accent transition duration-300">All Articles</a>
+                <Link href="/articles" className="text-white/70 hover:text-accent transition duration-300">
+                  All Articles
                 </Link>
               </li>
               <li>
-                <Link href="/search">
-                  <a className="text-white/70 hover:text-accent transition duration-300">Search</a>
+                <Link href="/search" className="text-white/70 hover:text-accent transition duration-300">
+                  Search
                 </Link>
               </li>
             </ul>

@@ -63,7 +63,7 @@ const ReaderTestimonials = () => {
         className="h-full"
       >
         <div 
-          className="relative bg-white rounded-lg shadow-md h-full cursor-pointer" 
+          className="relative bg-white border border-secondary rounded-lg shadow-lg h-full cursor-pointer overflow-hidden" 
           onClick={handleClick}
           style={{ perspective: '1000px' }}
         >
@@ -77,26 +77,38 @@ const ReaderTestimonials = () => {
               left: 0,
               right: 0,
               bottom: 0,
-              padding: '1.5rem',
+              padding: '2rem',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
               backfaceVisibility: 'hidden'
             }}
           >
-            <div className="flex items-center mb-4">
-              <img 
-                src={testimonial.avatar} 
-                alt={testimonial.name}
-                className="w-16 h-16 rounded-full object-cover"
-              />
-              <div className="ml-4">
-                <h3 className="font-bold text-primary">{testimonial.name}</h3>
-                <p className="text-sm text-text">{testimonial.title}</p>
+            <div className="flex flex-col items-center mb-6 text-center">
+              <div className="mb-4 w-24 h-24 rounded-full border-4 border-secondary overflow-hidden shadow-md">
+                <img 
+                  src={testimonial.avatar} 
+                  alt={testimonial.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-primary">{testimonial.name}</h3>
+                <p className="text-sm text-text/80">{testimonial.title}</p>
               </div>
             </div>
-            <p className="text-text italic mb-2">"{testimonial.quote.substring(0, 100)}..."</p>
-            <p className="text-accent text-sm">Click to read more</p>
+            <div className="relative mb-6 px-4">
+              <span className="absolute top-0 left-0 text-6xl text-accent/10">"</span>
+              <p className="text-text italic relative z-10 pt-4 px-4">
+                {testimonial.quote.substring(0, 100)}...
+              </p>
+              <span className="absolute bottom-0 right-0 text-6xl text-accent/10">"</span>
+            </div>
+            <div className="text-center">
+              <span className="inline-block px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-medium hover:bg-accent/20 transition-colors">
+                Click to read more
+              </span>
+            </div>
           </animated.div>
           
           {/* Back Side */}
@@ -109,19 +121,28 @@ const ReaderTestimonials = () => {
               left: 0,
               right: 0,
               bottom: 0,
-              padding: '1.5rem',
+              padding: '2rem',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
-              backfaceVisibility: 'hidden'
+              backfaceVisibility: 'hidden',
+              background: 'linear-gradient(135deg, #ffffff, #f8f8f8)'
             }}
           >
-            <p className="text-text italic">"{testimonial.quote}"</p>
-            <div className="mt-4 text-right">
-              <h3 className="font-bold text-primary">{testimonial.name}</h3>
-              <p className="text-sm text-text">{testimonial.title}</p>
+            <div className="relative mb-6 px-4">
+              <span className="absolute top-0 left-0 text-6xl text-accent/10">"</span>
+              <p className="text-text italic relative z-10 pt-6 px-4">
+                {testimonial.quote}
+              </p>
+              <span className="absolute bottom-0 right-0 text-6xl text-accent/10">"</span>
             </div>
-            <p className="text-accent text-sm mt-4">Click to flip back</p>
+            <div className="mt-6 text-center">
+              <h3 className="font-bold text-lg text-primary">{testimonial.name}</h3>
+              <p className="text-sm text-text/80 mb-4">{testimonial.title}</p>
+              <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors">
+                Click to flip back
+              </span>
+            </div>
           </animated.div>
         </div>
       </animated.div>
@@ -129,18 +150,23 @@ const ReaderTestimonials = () => {
   };
   
   return (
-    <section className="py-16 px-6">
-      <div className="container">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-primary mb-4">What Our Readers Say</h2>
+    <section className="py-20 px-6 bg-gradient-to-b from-primary/5 to-transparent">
+      <div className="container relative">
+        <div className="text-center mb-16">
+          <span className="inline-block px-4 py-1 mb-4 bg-accent/10 text-accent rounded-full text-sm font-medium">Testimonials</span>
+          <h2 className="text-4xl font-bold text-primary mb-6">What Our Readers Say</h2>
           <p className="max-w-2xl mx-auto text-text">
             Discover how our content has helped people navigate Japanese real estate and find their ideal homes.
           </p>
         </div>
         
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 w-24 h-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/5 z-0"></div>
+        <div className="absolute bottom-0 right-0 w-48 h-48 translate-x-1/4 translate-y-1/4 rounded-full bg-primary/5 z-0"></div>
+        
         <div 
           ref={ref}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10"
         >
           {testimonials.map((testimonial, index) => (
             <TestimonialCard key={index} testimonial={testimonial} index={index} />
