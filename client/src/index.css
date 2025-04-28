@@ -63,7 +63,7 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-[#d9d9d9] dark:border-[#333333];
   }
 
   html {

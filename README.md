@@ -36,14 +36,17 @@ This starts both the Express backend and the Vite frontend server.
 For a completely static site experience without any server-side dependencies:
 
 ```bash
-# Using the frontend.sh script directly
+# Using the dedicated client-only server
+node client-only-server.js
+
+# Or using the frontend.sh script directly
 ./frontend.sh
 
-# Or using Node.js
+# Or using the simple client-dev script
 node client-dev.js
 ```
 
-This will start a Vite development server for the client only, using the static data files.
+This will start a Vite development server for the client only, using the static data files. The authentication will be handled client-side with localStorage for persistence.
 
 ## Building for Production
 
