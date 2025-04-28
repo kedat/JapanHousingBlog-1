@@ -31,8 +31,10 @@ type AuthContextType = {
   registerMutation: UseMutationResult<User, Error, RegisterData>;
 };
 
+// Create context with default null value
 export const AuthContext = createContext<AuthContextType | null>(null);
 
+// Export the provider component
 export function AuthProvider({ children }: { children: ReactNode }) {
   const { toast } = useToast();
   const queryClient = useQueryClient();

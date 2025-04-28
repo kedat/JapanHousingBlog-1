@@ -1,9 +1,9 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Redirect } from "wouter";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { LanguageProvider } from "@/providers/language-provider";
-import { AuthProvider } from "@/hooks/use-auth";
+import { AuthProvider, useAuth } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
 import NotFound from "@/pages/not-found";
 import Header from "@/components/Header";
@@ -28,6 +28,9 @@ function Router() {
     setIsSearchVisible(!isSearchVisible);
   };
 
+  // Get authentication state
+  const { user } = useAuth();
+  
   return (
     <div className="flex flex-col min-h-screen">
       <Header isSearchVisible={isSearchVisible} toggleSearch={toggleSearch} />
@@ -39,9 +42,15 @@ function Router() {
           <Route path="/categories/:slug" component={Category} />
           <Route path="/search" component={Search} />
           <Route path="/about" component={About} />
-          <Route path="/auth" component={AuthPage} />
-          {/* Protected routes would use this pattern: */}
+          
+          {/* Auth page - redirects to home if already logged in */}
+          <Route path="/auth">
+            {user ? <Redirect to="/" /> : <AuthPage />}
+          </Route>
+          
+          {/* Example of a protected route - uncomment when needed */}
           {/* <ProtectedRoute path="/profile" component={ProfilePage} /> */}
+          
           <Route component={NotFound} />
         </Switch>
       </main>
