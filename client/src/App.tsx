@@ -54,12 +54,14 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <ThemeProvider defaultTheme="light" storageKey="japan-housing-theme">
-          <TooltipProvider>
-            <Router />
-            <Toaster />
-          </TooltipProvider>
-        </ThemeProvider>
+        <LanguageProvider defaultLanguage="en" storageKey="japan-housing-language">
+          <ThemeProvider defaultTheme="light" storageKey="japan-housing-theme">
+            <TooltipProvider>
+              <Router />
+              <Toaster />
+            </TooltipProvider>
+          </ThemeProvider>
+        </LanguageProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
