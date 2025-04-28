@@ -1,5 +1,5 @@
-// Simple script to run the Vite development server directly
-// without needing the Express server
+#!/usr/bin/env node
+// This script runs a standalone client-only server for development
 
 import { createServer } from 'vite';
 import { fileURLToPath } from 'url';
@@ -10,18 +10,32 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 async function startClientDev() {
   console.log('Starting client-only development server...');
   
-  const vite = await createServer({
-    configFile: path.resolve(__dirname, 'client/vite.config.ts'),
-    root: path.resolve(__dirname, 'client'),
-  });
-  
-  await vite.listen();
-  
-  vite.printUrls();
-  console.log('Client-only development server started!');
+  try {
+    const vite = await createServer({
+      configFile: path.resolve(__dirname, 'client/vite.config.ts'),
+      root: path.resolve(__dirname, 'client'),
+      server: {
+        port: 5001,
+        host: '0.0.0.0',
+        open: true,
+      }
+    });
+    
+    await vite.listen();
+    
+    vite.printUrls();
+    console.log('\n---------------------------------------------');
+    console.log('✅ Client-only server started successfully!');
+    console.log('🔄 All data is now stored statically in memory');
+    console.log('📱 Full responsive design with mobile optimization');
+    console.log('🌐 Multi-language support (English, Japanese, Vietnamese)');
+    console.log('🔑 Client-side authentication with local storage');
+    console.log('🎨 Dark/Light theme switching');
+    console.log('---------------------------------------------\n');
+  } catch (err) {
+    console.error('Error starting client development server:', err);
+    process.exit(1);
+  }
 }
 
-startClientDev().catch(err => {
-  console.error('Error starting development server:', err);
-  process.exit(1);
-});
+startClientDev();

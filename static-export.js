@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// This script builds the static site and prepares it for deployment
+// This script builds the client and creates a simple server.js file to serve the built assets
 
 import { execSync } from 'child_process';
 import fs from 'fs';
@@ -8,19 +8,16 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-console.log('Building client for static export...');
-
-// First, build the client
-try {
-  execSync('cd client && npx vite build', { stdio: 'inherit' });
-  console.log('Client build completed successfully.');
-} catch (error) {
-  console.error('Error building client:', error);
-  process.exit(1);
-}
-
-// Create a simple server.js for static hosting platforms that need a server file
-const serverJsContent = `
+async function buildStaticSite() {
+  console.log('Building static site...');
+  
+  try {
+    // Build the client
+    execSync('cd client && npx vite build', { stdio: 'inherit' });
+    
+    // Create a simple server.js file to serve the built assets
+    const serverPath = path.join(__dirname, 'dist', 'server.js');
+    const serverCode = `
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -30,21 +27,34 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Serve static files
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname)));
 
-// Handle all routes for SPA
+// All routes go to index.html for client-side routing
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(\`Server is running on port \${PORT}\`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(\`Static server running at http://localhost:\${PORT}\`);
 });
 `;
 
-// Write the server.js file
-fs.writeFileSync(path.join(__dirname, 'server.js'), serverJsContent);
-console.log('Created server.js for static deployments.');
+    // Make sure the dist directory exists
+    if (!fs.existsSync(path.join(__dirname, 'dist'))) {
+      fs.mkdirSync(path.join(__dirname, 'dist'), { recursive: true });
+    }
 
-console.log('Static export completed! The site is ready for deployment.');
-console.log('To preview the site locally, run: cd client && npx vite preview --host 0.0.0.0 --port 5000');
+    // Write the server file
+    fs.writeFileSync(serverPath, serverCode);
+    
+    console.log('✅ Static site build complete!');
+    console.log('✅ Simple server.js file created in dist/server.js');
+    console.log('To run the static site:');
+    console.log('  node dist/server.js');
+  } catch (err) {
+    console.error('Error building static site:', err);
+    process.exit(1);
+  }
+}
+
+buildStaticSite();
