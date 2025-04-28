@@ -86,9 +86,8 @@ export async function apiRequest<T>(
 }
 
 // Custom query function that works with our static data
-export const getQueryFn: <T>() => QueryFunction<T> =
-  () =>
-  async ({ queryKey }) => {
+export const getQueryFn = () => {
+  return async ({ queryKey }: { queryKey: unknown[] }) => {
     // Add a small delay to simulate network latency
     await new Promise(resolve => setTimeout(resolve, 100));
     
@@ -97,7 +96,7 @@ export const getQueryFn: <T>() => QueryFunction<T> =
     // Handle special cases like articles by slug
     if (typeof path === 'string') {
       try {
-        return await apiRequest<T>('GET', path);
+        return await apiRequest('GET', path);
       } catch (error) {
         console.error('Error fetching data:', error);
         throw error;
@@ -106,6 +105,7 @@ export const getQueryFn: <T>() => QueryFunction<T> =
     
     throw new Error(`Invalid query key: ${queryKey}`);
   };
+};
 
 // Create and export the query client
 export const queryClient = new QueryClient({
