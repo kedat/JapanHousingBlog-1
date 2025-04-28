@@ -3,8 +3,10 @@ import { Facebook, Twitter, Instagram, Linkedin, ChevronDown } from "lucide-reac
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/providers/language-provider";
 
 const Footer = () => {
+  const { t } = useLanguage();
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [linksOpen, setLinksOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
@@ -17,7 +19,7 @@ const Footer = () => {
           <div>
             <h3 className="font-bold text-xl mb-4">JAPAN HOUSING</h3>
             <p className="text-white/70 mb-6">
-              Exploring Japanese architecture, real estate, and design through insightful articles and analysis.
+              {t('footer.description')}
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-white hover:text-accent transition duration-300" aria-label="Facebook">
@@ -36,7 +38,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-bold mb-4">Categories</h4>
+            <h4 className="font-bold mb-4">{t('footer.categories')}</h4>
             <ul className="space-y-2">
               <li>
                 <Link href="/categories/architecture" className="text-white/70 hover:text-accent transition duration-300">
@@ -112,7 +114,7 @@ const Footer = () => {
           <div className="mb-6">
             <h3 className="font-bold text-xl mb-4">JAPAN HOUSING</h3>
             <p className="text-white/70 mb-6">
-              Exploring Japanese architecture, real estate, and design through insightful articles and analysis.
+              {t('footer.description')}
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-white hover:text-accent transition duration-300" aria-label="Facebook">
