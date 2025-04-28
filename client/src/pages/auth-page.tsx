@@ -7,7 +7,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { insertUserSchema, InsertUser } from "@shared/schema";
 import { z } from "zod";
 import { Redirect } from "wouter";
 import { Loader2, Check, Calendar, Users } from "lucide-react";
@@ -70,7 +69,7 @@ export default function AuthPage() {
 
   const onRegisterSubmit = (values: RegisterFormValues) => {
     const { confirmPassword, ...userDetails } = values;
-    registerMutation.mutate(userDetails as InsertUser);
+    registerMutation.mutate(userDetails);
   };
 
   // Redirect if user is already logged in
