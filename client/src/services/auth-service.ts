@@ -81,21 +81,15 @@ class AuthService {
       throw new Error('Username already exists');
     }
 
-    // In a real implementation, we would add the user to our database
-    // For this demo, we'll just throw an error since we can't modify our static data
-    throw new Error('Registration is disabled in demo mode');
-    
-    // The following would be the actual implementation if we could modify our users array:
-    /*
+    // In a static site, we can't actually add to the database
+    // Instead, we'll create a temporary user object in memory and localStorage
     const newUser: User = {
-      id: Math.max(...users.map(u => u.id)) + 1,
+      id: Date.now(), // Use timestamp as a unique ID
       username: data.username,
       password: data.password, // In a real app, this would be hashed
       name: data.name || null,
       email: data.email || null
     };
-    
-    users.push(newUser);
     
     // Create a sanitized user object (without password)
     const { password: _, ...sanitizedUser } = newUser;
@@ -104,7 +98,6 @@ class AuthService {
     this.saveUserToStorage(newUser);
     
     return sanitizedUser as User;
-    */
   }
 
   async logout(): Promise<void> {
