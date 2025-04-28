@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Search, User, Menu, X } from "lucide-react";
 import SearchBar from "./SearchBar";
 import { ThemeToggle } from "./theme-toggle";
@@ -24,6 +24,7 @@ interface HeaderProps {
 const Header = ({ isSearchVisible, toggleSearch }: HeaderProps) => {
   const { user, logoutMutation } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [, setLocation] = useLocation();
 
   const handleLogout = () => {
     logoutMutation.mutate();
@@ -33,6 +34,10 @@ const Header = ({ isSearchVisible, toggleSearch }: HeaderProps) => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
   
   const closeMenu = () => setMenuOpen(false);
+
+  const goToSearch = () => {
+    setLocation('/search');
+  };
 
   return (
     <header className="border-b border-secondary sticky top-0 bg-background z-50">
@@ -46,13 +51,16 @@ const Header = ({ isSearchVisible, toggleSearch }: HeaderProps) => {
           
           {/* Mobile Menu Button */}
           <div className="flex items-center md:hidden">
-            <button 
-              onClick={toggleSearch}
-              className="p-2 mr-2 text-foreground hover:text-accent transition duration-300"
-              aria-label="Toggle search"
-            >
-              <Search className="h-5 w-5" />
-            </button>
+            <Link href="/search">
+              <Button 
+                variant="ghost"
+                size="icon"
+                className="mr-2 text-foreground hover:text-accent transition duration-300"
+                aria-label="Go to search"
+              >
+                <Search className="h-5 w-5" />
+              </Button>
+            </Link>
             <ThemeToggle />
             {user ? (
               <DropdownMenu>
@@ -111,14 +119,16 @@ const Header = ({ isSearchVisible, toggleSearch }: HeaderProps) => {
             <Link href="/about" className="text-foreground hover:text-accent transition duration-300">
               About
             </Link>
-            <button
-              type="button"
-              onClick={toggleSearch}
-              className="text-foreground hover:text-accent transition duration-300"
-              aria-label="Toggle search"
-            >
-              <Search className="h-5 w-5" />
-            </button>
+            <Link href="/search">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="flex items-center justify-center w-10 h-10 text-foreground hover:text-accent hover:bg-secondary/10 rounded-full transition duration-300"
+                aria-label="Search"
+              >
+                <Search className="h-5 w-5" />
+              </Button>
+            </Link>
             
             <ThemeToggle />
             
@@ -176,6 +186,9 @@ const Header = ({ isSearchVisible, toggleSearch }: HeaderProps) => {
             </Link>
             <Link href="/about" onClick={closeMenu} className="text-lg text-foreground hover:text-accent transition duration-300">
               About
+            </Link>
+            <Link href="/search" onClick={closeMenu} className="text-lg text-foreground hover:text-accent transition duration-300">
+              Search
             </Link>
           </nav>
         </div>

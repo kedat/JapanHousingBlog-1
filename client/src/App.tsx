@@ -19,6 +19,8 @@ import { queryClient } from "@/lib/queryClient";
 import { useState } from "react";
 
 function Router() {
+  // We're keeping isSearchVisible but now it just controls 
+  // if the search bar is visible in the header on mobile
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const toggleSearch = () => {

@@ -6,7 +6,6 @@ import NewsletterSection from "@/components/NewsletterSection";
 import PopularCategories from "@/components/PopularCategories";
 import KeyStatsSection from "@/components/KeyStatsSection";
 import NeighborhoodGuide from "@/components/NeighborhoodGuide";
-import ReaderTestimonials from "@/components/ReaderTestimonials";
 import { getFeaturedArticles, getLatestArticles } from "@/data/articles";
 import { getFeaturedCategories } from "@/data/categories";
 import { useEffect } from "react";
@@ -37,7 +36,6 @@ const Home = () => {
       <CategorySection categories={featuredCategories} />
       <NeighborhoodGuide />
       <LatestArticles articles={latestArticles} />
-      <ReaderTestimonials />
       <NewsletterSection />
     </>
   );
