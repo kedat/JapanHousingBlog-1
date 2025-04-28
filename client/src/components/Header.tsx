@@ -2,7 +2,9 @@ import { Link, useLocation } from "wouter";
 import { Search, User, Menu, X } from "lucide-react";
 import SearchBar from "./SearchBar";
 import { ThemeToggle } from "./theme-toggle";
+import { LanguageToggle, MobileLanguageToggle } from "./language-toggle";
 import { useAuth } from "@/hooks/use-auth";
+import { useLanguage } from "@/providers/language-provider";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { 
@@ -23,6 +25,7 @@ interface HeaderProps {
 
 const Header = ({ isSearchVisible, toggleSearch }: HeaderProps) => {
   const { user, logoutMutation } = useAuth();
+  const { t } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
   const [, setLocation] = useLocation();
 
@@ -108,16 +111,16 @@ const Header = ({ isSearchVisible, toggleSearch }: HeaderProps) => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
             <Link href="/" className="text-foreground hover:text-accent transition duration-300">
-              Home
+              {t('nav.home')}
             </Link>
             <Link href="/articles" className="text-foreground hover:text-accent transition duration-300">
-              Articles
+              {t('nav.articles')}
             </Link>
             <Link href="/categories/architecture" className="text-foreground hover:text-accent transition duration-300">
-              Categories
+              {t('nav.categories')}
             </Link>
             <Link href="/about" className="text-foreground hover:text-accent transition duration-300">
-              About
+              {t('nav.about')}
             </Link>
             <Link href="/search">
               <Button
@@ -129,6 +132,8 @@ const Header = ({ isSearchVisible, toggleSearch }: HeaderProps) => {
                 <Search className="h-5 w-5" />
               </Button>
             </Link>
+            
+            <LanguageToggle />
             
             <ThemeToggle />
             
@@ -154,7 +159,7 @@ const Header = ({ isSearchVisible, toggleSearch }: HeaderProps) => {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout}>
-                    Log out
+                    {t('nav.logout')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -162,7 +167,7 @@ const Header = ({ isSearchVisible, toggleSearch }: HeaderProps) => {
               <Link href="/auth">
                 <Button variant="outline" size="sm">
                   <User className="mr-2 h-4 w-4" />
-                  Login
+                  {t('nav.login')}
                 </Button>
               </Link>
             )}
@@ -176,20 +181,24 @@ const Header = ({ isSearchVisible, toggleSearch }: HeaderProps) => {
         )}>
           <nav className="flex flex-col space-y-4">
             <Link href="/" onClick={closeMenu} className="text-lg text-foreground hover:text-accent transition duration-300">
-              Home
+              {t('nav.home')}
             </Link>
             <Link href="/articles" onClick={closeMenu} className="text-lg text-foreground hover:text-accent transition duration-300">
-              Articles
+              {t('nav.articles')}
             </Link>
             <Link href="/categories/architecture" onClick={closeMenu} className="text-lg text-foreground hover:text-accent transition duration-300">
-              Categories
+              {t('nav.categories')}
             </Link>
             <Link href="/about" onClick={closeMenu} className="text-lg text-foreground hover:text-accent transition duration-300">
-              About
+              {t('nav.about')}
             </Link>
             <Link href="/search" onClick={closeMenu} className="text-lg text-foreground hover:text-accent transition duration-300">
-              Search
+              {t('search.placeholder')}
             </Link>
+            
+            <div className="pt-2 border-t border-secondary">
+              <MobileLanguageToggle />
+            </div>
           </nav>
         </div>
         
