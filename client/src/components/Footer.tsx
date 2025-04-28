@@ -69,21 +69,21 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-bold mb-4">Quick Links</h4>
+            <h4 className="font-bold mb-4">{t('footer.quickLinks')}</h4>
             <ul className="space-y-2">
               <li>
                 <Link href="/" className="text-white/70 hover:text-accent transition duration-300">
-                  Home
+                  {t('nav.home')}
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="text-white/70 hover:text-accent transition duration-300">
-                  About Us
+                  {t('footer.about')}
                 </Link>
               </li>
               <li>
                 <Link href="/articles" className="text-white/70 hover:text-accent transition duration-300">
-                  All Articles
+                  {t('footer.articles')}
                 </Link>
               </li>
               <li>
@@ -95,7 +95,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-bold mb-4">Contact Us</h4>
+            <h4 className="font-bold mb-4">{t('footer.contactUs')}</h4>
             <address className="not-italic text-white/70">
               <p>Shibuya Crossing Building</p>
               <p>2-8-10 Dogenzaka, Shibuya</p>
@@ -134,7 +134,7 @@ const Footer = () => {
           
           <Collapsible open={categoriesOpen} onOpenChange={setCategoriesOpen} className="border-t border-white/20 py-3">
             <CollapsibleTrigger className="flex justify-between items-center w-full">
-              <h4 className="font-bold">Categories</h4>
+              <h4 className="font-bold">{t('footer.categories')}</h4>
               <ChevronDown className={cn("h-5 w-5 transition-transform", categoriesOpen ? "transform rotate-180" : "")} />
             </CollapsibleTrigger>
             <CollapsibleContent className="pt-3">
@@ -170,14 +170,14 @@ const Footer = () => {
           
           <Collapsible open={linksOpen} onOpenChange={setLinksOpen} className="border-t border-white/20 py-3">
             <CollapsibleTrigger className="flex justify-between items-center w-full">
-              <h4 className="font-bold">Quick Links</h4>
+              <h4 className="font-bold">{t('footer.quickLinks')}</h4>
               <ChevronDown className={cn("h-5 w-5 transition-transform", linksOpen ? "transform rotate-180" : "")} />
             </CollapsibleTrigger>
             <CollapsibleContent className="pt-3">
               <ul className="space-y-3">
                 <li>
                   <Link href="/" className="text-white/70 hover:text-accent transition duration-300">
-                    Home
+                    {t('nav.home')}
                   </Link>
                 </li>
                 <li>
@@ -201,7 +201,7 @@ const Footer = () => {
           
           <Collapsible open={contactOpen} onOpenChange={setContactOpen} className="border-t border-white/20 py-3">
             <CollapsibleTrigger className="flex justify-between items-center w-full">
-              <h4 className="font-bold">Contact Us</h4>
+              <h4 className="font-bold">{t('footer.contactUs')}</h4>
               <ChevronDown className={cn("h-5 w-5 transition-transform", contactOpen ? "transform rotate-180" : "")} />
             </CollapsibleTrigger>
             <CollapsibleContent className="pt-3">
@@ -220,7 +220,7 @@ const Footer = () => {
         </div>
         
         <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-white/20 text-center text-white/50 text-sm">
-          <p>&copy; {new Date().getFullYear()} Japan Housing. All rights reserved.</p>
+          <p>{t('footer.copyright')}</p>
         </div>
       </div>
     </footer>
