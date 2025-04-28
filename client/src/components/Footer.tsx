@@ -182,12 +182,12 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link href="/about" className="text-white/70 hover:text-accent transition duration-300">
-                    About Us
+                    {t('footer.about')}
                   </Link>
                 </li>
                 <li>
                   <Link href="/articles" className="text-white/70 hover:text-accent transition duration-300">
-                    All Articles
+                    {t('footer.articles')}
                   </Link>
                 </li>
                 <li>
